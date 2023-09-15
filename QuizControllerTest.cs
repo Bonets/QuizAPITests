@@ -8,15 +8,15 @@ using Xunit;
 
 namespace QuizAPITests
 {
-    public class TestControllerTest
+    public class QuizControllerTest
     {
         private readonly TestController _controller;
         private readonly IConfiguration _config;
 
-        public TestControllerTest()
+        public QuizControllerTest()
         {
             _config = new ConfigurationBuilder()
-                .AddJsonFile("appsetting.json", false, false)
+                .AddJsonFile("appsettings.json", false, false)
                 .AddEnvironmentVariables()
                 .Build();
             _controller = new TestController(new ServiceFactory(GetQuizContext()), GetQuizContext(), _config);
@@ -24,7 +24,7 @@ namespace QuizAPITests
 
         public QuizContext GetQuizContext()
         {
-            var connectionString = _config.GetConnectionString("quiz");
+            var connectionString = _config.GetConnectionString("WebApiDatabase");
             var options = new DbContextOptionsBuilder<QuizContext>()
             .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)).Options;
 
